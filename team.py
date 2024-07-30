@@ -7,7 +7,7 @@ import re
 api_id = '27232480'
 api_hash = 'b00b2f81b37e64a7eca45f11570ed7ac'
 bot_token = '7245992910:AAFjz_Klm6CWR2X2uORIydulKZ8a8WBqswg'
-public_group_ids = [-1002243936664, -1001371184682, 6145463489, -1002208686405]
+public_group_ids = [ -4198424207]
 private_chat_id = -1002208686405
 
 # Configure logging
@@ -30,19 +30,24 @@ async def main():
         message_text = message.text or ""
 
         if message.media:
-            # If the message has media (like images), forward it directly
+            # Construct the link to the media message
+            chat_id = message.chat_id
+            message_id = message.id
+            media_link = f"https://t.me/c/{abs(chat_id)}/{message_id}"
+
+            # Send the link to the private chat
             try:
-                await client.forward_messages(private_chat_id, message)
-                logging.info(f"Media forwarded: {message.media}")
+                await client.send_message(private_chat_id, f"Media Link: {media_link}")
+                logging.info(f"Media link sent: {media_link}")
             except Exception as e:
-                logging.error(f"An error occurred while forwarding the media: {e}")
+                logging.error(f"An error occurred while sending the media link: {e}")
         elif message_passes_filter(message_text):
             # If it's a text message and passes the filter
             try:
                 await client.send_message(private_chat_id, message_text)
-                logging.info(f"Message forwarded: {message_text}")
+                logging.info(f"Message sent: {message_text}")
             except Exception as e:
-                logging.error(f"An error occurred while forwarding the message: {e}")
+                logging.error(f"An error occurred while sending the message: {e}")
         else:
             logging.info(f"Message did not pass filter: {message_text}")
 
