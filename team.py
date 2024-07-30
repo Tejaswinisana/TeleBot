@@ -4,9 +4,9 @@ import asyncio
 import re
 
 # Replace these with your credentials
-api_id = 'jsjshdj'
-api_hash = 'jksdksjkd'
-bot_token = 'jsdjhsajdhja'
+api_id = '27232480'
+api_hash = 'b00b2f81b37e64a7eca45f11570ed7ac'
+bot_token = '7245992910:AAFjz_Klm6CWR2X2uORIydulKZ8a8WBqswg'
 public_group_ids = [-1002243936664, -1001371184682, 6145463489]
 private_chat_id = -4269781975
 
@@ -39,7 +39,7 @@ async def main():
         elif message_passes_filter(message_text):
             # If it's a text message and passes the filter
             try:
-                await client.send_message(private_chat_id, f"Forwarded Message from Group:\n{message_text}")
+                await client.send_message(private_chat_id, message_text)
                 logging.info(f"Message forwarded: {message_text}")
             except Exception as e:
                 logging.error(f"An error occurred while forwarding the message: {e}")
